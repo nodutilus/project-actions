@@ -28,8 +28,8 @@ jobs:
           node-version: latest
       - run: npm install
       - uses: nodutilus/project-actions/npm-build@test
-      - uses: ./eslint
-      - uses: ./eslintcc
+      - run: npx nodutilus eslint
+      - run: npx nodutilus eslintсс
 
   types:
     name: Types Checking
@@ -41,7 +41,7 @@ jobs:
           node-version: latest
       - run: npm install
       - uses: nodutilus/project-actions/npm-build@test
-      - uses: ./ts-check
+      - uses: npx nodutilus ts-check
 
   tests:
     name: Test on ${{ matrix.os }}
@@ -56,7 +56,7 @@ jobs:
           node-version: latest
       - run: npm install
       - uses: nodutilus/project-actions/npm-build@test
-      - uses: ./test
+      - run: npx nodutilus test
 
   coverage:
     name: Coverage Checking
@@ -69,7 +69,7 @@ jobs:
           node-version: latest
       - run: npm install
       - uses: nodutilus/project-actions/npm-build@test
-      - uses: ./c8
+      - uses: npx nodutilus c8
 
   build-and-publish:
     name: Build & Publish
@@ -83,6 +83,6 @@ jobs:
           node-version: latest
       - run: npm install
       - uses: nodutilus/project-actions/npm-build@test
-      - uses: ./npm-publish
+      - uses: nodutilus/project-actions/npm-publish@test
         with:
           token: ${{ secrets.NPM_TOKEN }}
