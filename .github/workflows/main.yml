@@ -41,7 +41,7 @@ jobs:
           node-version: latest
       - run: npm install
       - uses: nodutilus/project-actions/npm-build@test
-      - uses: npx nodutilus ts-check
+      - run: npx nodutilus ts-check
 
   tests:
     name: Test on ${{ matrix.os }}
@@ -69,7 +69,7 @@ jobs:
           node-version: latest
       - run: npm install
       - uses: nodutilus/project-actions/npm-build@test
-      - uses: npx nodutilus c8
+      - run: npx nodutilus c8
 
   build-and-publish:
     name: Build & Publish
