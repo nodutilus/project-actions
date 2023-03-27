@@ -27,7 +27,7 @@ jobs:
         with:
           node-version: latest
       - run: npm install
-      - uses: nodutilus/project-actions/npm-build@test
+      - uses: nodutilus/project-actions/npm-build@main
       - run: npx nodutilus eslint
       - run: npx nodutilus eslintcc
 
@@ -40,7 +40,7 @@ jobs:
         with:
           node-version: latest
       - run: npm install
-      - uses: nodutilus/project-actions/npm-build@test
+      - uses: nodutilus/project-actions/npm-build@main
       - run: npx nodutilus ts-check
 
   tests:
@@ -55,7 +55,7 @@ jobs:
         with:
           node-version: latest
       - run: npm install
-      - uses: nodutilus/project-actions/npm-build@test
+      - uses: nodutilus/project-actions/npm-build@main
       - run: npx nodutilus test
 
   coverage:
@@ -68,7 +68,7 @@ jobs:
         with:
           node-version: latest
       - run: npm install
-      - uses: nodutilus/project-actions/npm-build@test
+      - uses: nodutilus/project-actions/npm-build@main
       - run: npx nodutilus c8
 
   build-and-publish:
@@ -82,7 +82,7 @@ jobs:
         with:
           node-version: latest
       - run: npm install
-      - uses: nodutilus/project-actions/npm-build@test
-      - uses: nodutilus/project-actions/npm-publish@test
+      - uses: nodutilus/project-actions/npm-build@main
+      - uses: nodutilus/project-actions/npm-publish@main
         with:
           token: ${{ secrets.NPM_TOKEN }}
