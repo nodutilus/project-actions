@@ -1,0 +1,7 @@
+name: Build NPM environment for Node.js
+description: Run `npm build` for Node.js projects
+author: IgorNovozhilov
+
+runs:
+  using: node16
+  main: npm-build.js
