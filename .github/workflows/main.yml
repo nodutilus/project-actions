@@ -3,6 +3,31 @@ name: Checks ➜ Tests ➜ Publish
 on:
   workflow_call:
     inputs:
+      eslint:
+        description: "Флаг включения проверки через ESLint"
+        default: true
+        required: false
+        type: boolean
+      eslintcc:
+        description: "Флаг включения проверки через ESLintCC"
+        default: true
+        required: false
+        type: boolean
+      types:
+        description: "Флаг включения проверки типов через TypeScript"
+        default: true
+        required: false
+        type: boolean
+      tests:
+        description: "Флаг включения запуска тестов"
+        default: true
+        required: false
+        type: boolean
+      coverage:
+        description: "Флаг включения проверки покрития кода через c8"
+        default: true
+        required: false
+        type: boolean
       publish:
         description: "Флаг включения автоматической публикации модулей найденных в репозитории"
         default: true
@@ -20,6 +45,7 @@ on:
 jobs:
   eslint:
     name: ESLint Checking
+    if: inputs.eslint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@main
@@ -29,10 +55,23 @@ jobs:
       - run: npm install
       - uses: nodutilus/project-actions/npm-build@main
       - run: npx nodutilus eslint
+
+  eslintcc:
+    name: ESLintCC Checking
+    if: inputs.eslintcc
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+      - uses: actions/setup-node@main
+        with:
+          node-version: latest
+      - run: npm install
+      - uses: nodutilus/project-actions/npm-build@main
       - run: npx nodutilus eslintcc
 
   types:
     name: Types Checking
+    if: inputs.types
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@main
@@ -48,6 +87,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macOS-latest]
+    if: inputs.tests
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@main
@@ -61,6 +101,7 @@ jobs:
   coverage:
     name: Coverage Checking
     needs: [tests]
+    if: inputs.coverage
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@main
