@@ -115,7 +115,7 @@ jobs:
   build-and-publish:
     name: Build & Publish
     needs: [eslint, eslintcc, types, tests, coverage]
-    if: (success() || cancelled()) && github.event_name == 'push' && inputs.publish && github.ref_name == inputs.publish_branche
+    if: ${{ !failure() && github.event_name == 'push' && inputs.publish && github.ref_name == inputs.publish_branche }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@main
