@@ -114,7 +114,7 @@ jobs:
 
   build-and-publish:
     name: Build & Publish
-    needs: [eslint, types, tests, coverage]
+    needs: [eslint, eslintcc, types, tests, coverage]
     if: github.event_name == 'push' && inputs.publish && github.ref_name == inputs.publish_branche
     runs-on: ubuntu-latest
     steps:
